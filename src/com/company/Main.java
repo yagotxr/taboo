@@ -6,10 +6,12 @@ public class Main {
 
     public static void main(String[] args) {
 
-        float capacidade = 5000000.0f;
+        float capacidade = 5000000.0f; //Teto de Gastos
 
-        Solution result = TabuSearch.execute(capacidade, 5);
+        //Executa Busca dado solução inicial e BTMax
+        Solution result = TabuSearch.execute(capacidade, 100);
 
+        //Print da Solução
         String output = "Product Code\t\t\t\t\t\t\tPrice\t\t\tPriority\tBenefit\n";
         for(int i = 0; i < DATA.getLength(); i++ ){
             if(result.getValues()[i] == 1){
@@ -22,3 +24,5 @@ public class Main {
         System.out.printf("%.2f percent beneficial\n", result.getResultF());
     }
 }
+
+//50.87 41.98 43.09 38.22 38.40 40.52 38.58 43.80 38.27 55.02

@@ -7,6 +7,7 @@ import java.util.UUID;
 
 public class Data {
 
+    //Geração de dados para a solucao
     private final int length;
     private final Map<Integer, Info> data;
     private final float alpha;
@@ -17,6 +18,7 @@ public class Data {
         this.alpha = this.calcAlpha();
     }
 
+    //Benefico alpha
     private float calcAlpha() {
         float total = 0f;
         for(Info info : data.values()){

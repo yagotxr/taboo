@@ -8,11 +8,11 @@ public class TabuSearch {
 
     private static final Logger logger = Logger.getLogger(TabuSearch.class.getName());;
 
-    private Solution bestSolution;
-    private final float budgetLimit;
-    private final ArrayList<Integer> tabuList = new ArrayList<>();
-    private int iter = 0;
-    private int bestIter = 0;
+    private Solution bestSolution; //Guarda melhor solucao
+    private final float budgetLimit; //Teto de Gastos
+    private final ArrayList<Integer> tabuList = new ArrayList<>(); //Lista Tabu
+    private int iter = 0; //n iteraçao
+    private int bestIter = 0; //n melhor Iter
     private final int btMax;
 
     public TabuSearch(float budgetLimit) {
@@ -40,6 +40,7 @@ public class TabuSearch {
         return bestSolution;
     }
 
+    //Gera vizinhos da solução atual
     private ArrayList<Solution> getNeighbors(Solution solution){
         ArrayList<Solution> neighbors = new ArrayList<>();
         for(int i = 0; i < solution.getValues().length; i++){
@@ -54,7 +55,7 @@ public class TabuSearch {
         return neighbors;
     }
 
-
+    //Retorna o melhor vizinho, caso viznho for melhor que solucao atual, a busca a guarda
     private Solution getBestNeighbor(List<Solution> neighbors){
         Solution bestOne = neighbors.get(0);
         int iter = 0;
@@ -82,10 +83,12 @@ public class TabuSearch {
         }
     }
 
+    //Checa se não e tabu
     private boolean isNotTabu(int index) {
         return !this.tabuList.contains(index);
     }
 
+    //Checa se algoritmo achou ou nao uma solucao, ou se caso iteracoes chegou ao limite do BTMax
     private boolean isDone(Solution solution) {
         if (solution == null){
             return true;
@@ -93,11 +96,7 @@ public class TabuSearch {
         return btMax != 0 && (iter - bestIter) > btMax;
     }
 
-    public static Solution execute(float capacity){
-        TabuSearch tabuSearch = new TabuSearch(capacity);
-        return tabuSearch.handleExecution(Solution.generateRandomSolution(capacity));
-    }
-
+    //Executa o busca
     public static Solution execute(float capacity, int btMax){
         TabuSearch tabuSearch = new TabuSearch(capacity, btMax);
         return tabuSearch.handleExecution(Solution.generateRandomSolution(capacity));
